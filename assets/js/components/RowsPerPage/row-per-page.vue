@@ -8,15 +8,8 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import Vuex from 'vuex'
-    import store from '../../board/store/mainStore'
-
-    Vue.use(Vuex)
-
     export default {
         name: 'row-per-page',
-        store: store,
         props: {
             label: {
                 type: String,
@@ -46,7 +39,8 @@
 
         methods: {
             onRowchanged: function () {
-                this.$emit('rowChanged', this.selectedValue)
+                console.log('row per page changed ' + this.selectedValue);
+                this.$store.dispatch('Rpp/updateRpp', this.selectedValue);
             }
         },
 
@@ -57,5 +51,8 @@
 </script>
 
 <style scoped>
+    .select2 {
+        width: auto;
+    }
 
 </style>

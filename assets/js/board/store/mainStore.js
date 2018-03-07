@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {HTTP} from "../../axios"
-import rpp from './rpp'
+import Rpp from './rpp'
 
 Vue.use(Vuex);
 
@@ -18,14 +18,15 @@ export default new Vuex.Store({
         }
     },
     modules: {
-        rpp
+        Rpp: Rpp
     },
     actions: {
-        init ({commit, rootGetters}) {
+        init (store) {
             let me = this;
-            let url = Urls["board:boards_list"]() + '?rpp=' + rootGetters.rpp;
+            console.log(store);
+            let url = Urls["board:boards_list"]() + '?rpp=' + store.getters['Rpp/rpp'];
             HTTP.get(url).then(function(response) {
-                commit('UPDATE_BOARDS', response.data.boards)
+                store.commit('UPDATE_BOARDS', response.data.boards, { root: true })
             }).catch(function (err) {
                 console.log(err);
             });

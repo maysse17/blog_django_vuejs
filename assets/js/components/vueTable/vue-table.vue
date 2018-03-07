@@ -21,6 +21,10 @@
             <tfoot>
             <tr>
                 <td colspan="12">
+                    <row-per-page label="Boards RPP"
+                                  :options="RppOptions"
+                    >
+                    </row-per-page>
                 </td>
             </tr>
             </tfoot>
@@ -29,8 +33,12 @@
 </template>
 
 <script>
+    import RowPerPage from '../RowsPerPage/row-per-page'
     export default {
         name: "vue-table",
+        components: {
+            RowPerPage
+        },
         props:{
             headers: {
                 type: Array,
@@ -40,10 +48,14 @@
                 type: Array,
                 default: () => []
             },
+        },
+        data () {
+            return {
+                RppOptions: [10, 20, 50, 100]
+            }
         }
     }
 </script>
 
 <style scoped>
-
 </style>
