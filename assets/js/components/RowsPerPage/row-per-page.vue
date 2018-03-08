@@ -39,7 +39,6 @@
 
         methods: {
             onRowchanged: function () {
-                console.log('row per page changed ' + this.selectedValue);
                 this.$store.dispatch('Rpp/updateRpp', this.selectedValue);
             }
         },

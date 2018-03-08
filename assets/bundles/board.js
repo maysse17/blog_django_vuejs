@@ -13645,11 +13645,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
     },
     actions: {
         init: function init(store) {
-            var me = this;
-            console.log(store);
             var url = Urls["board:boards_list"]() + '?rpp=' + store.getters['Rpp/rpp'];
             __WEBPACK_IMPORTED_MODULE_2__axios__["a" /* HTTP */].get(url).then(function (response) {
-                store.commit('UPDATE_BOARDS', response.data.boards, { root: true });
+                store.commit('UPDATE_BOARDS', response.data.boards);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -14586,12 +14584,17 @@ module.exports = function spread(callback) {
         }
     },
     actions: {
-        updateRpp: function updateRpp(store, value) {
+        updateRpp: function updateRpp(_ref, value) {
+            var dispatch = _ref.dispatch,
+                commit = _ref.commit,
+                getters = _ref.getters,
+                rootGetters = _ref.rootGetters;
+
             var me = this;
             var url = Urls["board:boards_list"]() + '?rpp=' + value;
             __WEBPACK_IMPORTED_MODULE_0__axios__["a" /* HTTP */].get(url).then(function (response) {
-                store.commit('UPDATE_BOARDS', response.data.boards);
-                store.commit('UPDATE_RPP', value);
+                commit('UPDATE_BOARDS', response.data.boards, { root: true });
+                commit('UPDATE_RPP', value);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -14668,7 +14671,6 @@ module.exports = !__webpack_require__(53)(function () {
 
     methods: {
         onRowchanged: function onRowchanged() {
-            console.log('row per page changed ' + this.selectedValue);
             this.$store.dispatch('Rpp/updateRpp', this.selectedValue);
         }
     },

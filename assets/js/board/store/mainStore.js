@@ -22,11 +22,9 @@ export default new Vuex.Store({
     },
     actions: {
         init (store) {
-            let me = this;
-            console.log(store);
             let url = Urls["board:boards_list"]() + '?rpp=' + store.getters['Rpp/rpp'];
             HTTP.get(url).then(function(response) {
-                store.commit('UPDATE_BOARDS', response.data.boards, { root: true })
+                store.commit('UPDATE_BOARDS', response.data.boards)
             }).catch(function (err) {
                 console.log(err);
             });

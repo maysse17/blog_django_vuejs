@@ -14,12 +14,12 @@ export default {
         }
     },
     actions: {
-        updateRpp (store, value) {
+        updateRpp ({ dispatch, commit, getters, rootGetters }, value) {
             let me = this;
             let url = Urls["board:boards_list"]() + '?rpp=' + value;
             HTTP.get(url).then(function(response) {
-                store.commit('UPDATE_BOARDS', response.data.boards);
-                store.commit('UPDATE_RPP', value);
+                commit('UPDATE_BOARDS', response.data.boards, { root: true });
+                commit('UPDATE_RPP', value);
             }).catch(function (err) {
                 console.log(err);
             });
