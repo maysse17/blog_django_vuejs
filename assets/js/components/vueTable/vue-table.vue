@@ -21,6 +21,10 @@
             <tfoot>
             <tr>
                 <td colspan="12">
+                    <pagination :pages="pages"
+                                :currentPage="currentPage"
+                    >
+                    </pagination>
                     <row-per-page label="Boards RPP"
                                   :options="RppOptions"
                     >
@@ -34,10 +38,12 @@
 
 <script>
     import RowPerPage from '../RowsPerPage/row-per-page'
+    import Pagination from '../pagination/pagination'
     export default {
         name: "vue-table",
         components: {
-            RowPerPage
+            RowPerPage,
+            Pagination
         },
         props:{
             headers: {
@@ -52,6 +58,14 @@
         data () {
             return {
                 RppOptions: [10, 20, 50, 100]
+            }
+        },
+        computed: {
+            currentPage () {
+                return this.$store.getters['Pagination/currentPage'];
+            },
+            pages () {
+                return this.$store.getters['Pagination/pages'];
             }
         }
     }

@@ -69,7 +69,7 @@ class ListBoardsView(ListView):
         self.object_list = self.get_queryset()
         self.paginate_by = self.get_rpp()
         context = self.get_context_data()
-        count = context.get('object_list').count()
+        count = self.object_list.count()
         boards = []
         for board in context.get('object_list'):
             boards.append({
